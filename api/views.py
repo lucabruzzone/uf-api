@@ -1,10 +1,13 @@
-from rest_framework import viewsets
+from rest_framework.decorators import action
 from rest_framework.response import Response
+from rest_framework import viewsets
 from datetime import datetime
 from .utils.get_uf import get_uf
 
 class UFViewSet(viewsets.ViewSet):
-    def list(self, request):
+    
+    @action(detail=False, methods=['get'])
+    def get_uf_basic(self, request):
         try:
             # Obtener los parámetros de la solicitud GET
             day = int(request.query_params.get('day', 0))
