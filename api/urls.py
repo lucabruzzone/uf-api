@@ -1,5 +1,6 @@
 from rest_framework import routers
 from django.urls import path, include
+
 from .views.uf.single_value_view import GetUFView
 from .views.uf.monthly_value_view import MonthlyValuesAPIView
 
