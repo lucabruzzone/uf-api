@@ -1,10 +1,6 @@
-# Proyecto Desafío Técnico
+# API de Valores UF
 
-Desafío técnico para el puesto de `desarrollador backend`
-
-## Descripción
-
-Este proyecto consta de una única aplicación, una `API` para poder consultar los valores de la Unidad de Fomento (UF) por día y por mes, a partir del 1 de Enero de 2013.
+Esta API proporciona información sobre el valor de la Unidad de Fomento (UF) en Chile. Permite consultar el valor de la UF para un día específico o para todos los días de un mes en particular.
 
 ## Implementación
 
@@ -24,6 +20,41 @@ Para instalar las dependencias necesarias, ejecuta:
 
 ```bash
 pip install -r requirements.txt
+```
+
+### Estructura de carpetas
+
+```text
+.
+├── api/
+│   ├── migrations/
+│   ├── utils/
+│   │   └── get_uf.py
+│   ├── views/
+│   │   └── uf/
+│   │       ├── __init__.py
+│   │       ├── monthly_value_view.py
+│   │       └── single_value_view.py
+│   ├── __init__.py
+│   ├── admin.py
+│   ├── apps.py
+│   ├── constants.py
+│   ├── models.py
+│   ├── README.md
+│   ├── tests.py
+│   └── urls.py
+├── uf_project/
+│   ├── __init__.py
+│   ├── asgi.py
+│   ├── settings.py
+│   ├── urls.py
+│   ├── wsgi.py
+├── .gitignore
+├── build.sh
+├── manage.py
+├── README.md
+├── requirements.txt
+
 ```
 
 ### Configuración del Proyecto
@@ -55,47 +86,133 @@ urlpatterns = [
 python manage.py runserver
 ```
 
-## Desarrollo
+Sirviendo en: http://127.0.0.1:8000
 
-### Vistas
+## Uso
 
-El proyecto está dividido en múltiples vistas, cada una responsable de manejar solicitudes específicas. Aquí se detalla la funcionalidad de las vistas principales:
+### Endpoints Disponibles
 
-1. `GetUFView` (single_value_view.py)
-2. `MonthlyValuesAPIView` (monthly_value_view.py)
+- **Obtener el valor UF para un día específico**: Permite consultar el valor de la UF para una fecha específica (día, mes y año).
+- **Obtener los valores UF para un mes específico**: Permite consultar los valores de la UF para todos los días de un mes y año específicos.
 
-Para información detallada sobre las vistas, revisa el `README.md` que encontrarás en la carpeta `api`
+### URL BASE
 
-### Estructura de la aplicación
+```bash
+https://ufapi.onrender.com
+```
 
-```text
-.
-├── api/
-│   ├── migrations/
-│   ├── utils/
-│   │   └── get_uf.py
-│   ├── views/
-│   │   └── uf/
-│   │       ├── __init__.py
-│   │       ├── monthly_value_view.py
-│   │       └── single_value_view.py
-│   ├── __init__.py
-│   ├── admin.py
-│   ├── apps.py
-│   ├── constants.py
-│   ├── models.py
-│   ├── README.md
-│   ├── tests.py
-│   └── urls.py
-├── uf_project/
-│   ├── __init__.py
-│   ├── asgi.py
-│   ├── settings.py
-│   ├── urls.py
-│   ├── wsgi.py
-├── .gitignore
-├── manage.py
-├── README.md
-├── requirements.txt
+### 1. Obtener el valor de la UF para una fecha específica
 
+- **RUTA**: `/api/uf/single/`
+- **Método**: `GET`
+- **Descripción**: Obtiene el valor de la UF para una fecha específica.
+
+#### Parámetros de Consulta
+
+- `day` (int): Día del mes (1-31).
+- `month` (int): Mes (1-12).
+- `year` (int): Año (YYYY).
+
+#### Ejemplo de Solicitud
+
+```http
+GET http://127.0.0.1:8000/api/uf/single/?day=19&month=8&year=2024
+```
+
+#### Respuestas
+
+- 200 OK:
+
+```json
+{
+  "uf_value": "22.837,06",
+  "date": "19/08/2024"
+}
+```
+
+- 400 Bad Request:
+
+```json
+{
+  "error": "El día o el mes no son válidos."
+}
+```
+
+```json
+{
+  "error": "La fecha debe ser posterior al 1 de enero de 2013."
+}
+```
+
+```json
+{
+  "error": "Los parámetros de fecha no son válidos."
+}
+```
+
+- 500 Internal Error:
+
+```json
+{
+  "error": "Error al obtener el valor de la UF."
+}
+```
+
+### 2. Obtener todos los valores de la UF para un mes y año específicos
+
+- **RUTA**: `/api/uf/monthly/`
+- **Método**: `GET`
+- **Descripción**: Obtiene todos los valores de la UF para un mes y año específicos.
+
+#### Parámetros de Consulta
+
+- `month` (int): Mes (1-12).
+- `year` (int): Año (YYYY).
+
+#### Ejemplo de Solicitud
+
+```http
+GET http://127.0.0.1:8000/api/uf/monthly/?month=8&year=2024
+```
+
+#### Respuestas
+
+- 200 OK:
+
+```json
+[
+  {"date": "01/08/2024", "uf_value": "22.837,06"},
+  {"date": "02/08/2024", "uf_value": "22.847,12"},
+  ...
+  {"date": "31/08/2024", "uf_value": "22.890,34"}
+]
+
+```
+
+- 400 Bad Request:
+
+```json
+{
+  "error": "El mes o el año no son válidos."
+}
+```
+
+```json
+{
+  "error": "La fecha debe ser posterior al 1 de enero de 2013."
+}
+```
+
+```json
+{
+  "error": "Los parámetros de fecha no son válidos."
+}
+```
+
+- 500 Internal Error:
+
+```json
+{
+  "error": "Error al obtener los valores de la UF."
+}
 ```
