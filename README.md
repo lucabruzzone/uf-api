@@ -64,7 +64,7 @@ Después de instalar las dependencias, asegúrate de que tu proyecto está corre
 1. Configuración de las rutas: Asegúrate de haber agregado las rutas de tu API en el archivo urls.py de la carpeta `api` correspondiente. Un ejemplo de configuración podría ser el siguiente:
 
 ```python
-# urls.py
+# api/urls.py
 from rest_framework import routers
 from django.urls import path, include
 
@@ -115,8 +115,8 @@ https://ufapi.onrender.com
 
 #### Ejemplo de Solicitud
 
-```http
-GET http://127.0.0.1:8000/api/uf/single/?day=19&month=8&year=2024
+```h
+http://127.0.0.1:8000/api/uf/single/?day=19&month=8&year=2024
 ```
 
 #### Respuestas
@@ -171,8 +171,8 @@ GET http://127.0.0.1:8000/api/uf/single/?day=19&month=8&year=2024
 
 #### Ejemplo de Solicitud
 
-```http
-GET http://127.0.0.1:8000/api/uf/monthly/?month=8&year=2024
+```h
+http://127.0.0.1:8000/api/uf/monthly/?month=8&year=2024
 ```
 
 #### Respuestas
