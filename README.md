@@ -90,16 +90,22 @@ Sirviendo en: http://127.0.0.1:8000
 
 ## Uso
 
-### Endpoints Disponibles
-
-- **Obtener el valor UF para un día específico**: Permite consultar el valor de la UF para una fecha específica (día, mes y año).
-- **Obtener los valores UF para un mes específico**: Permite consultar los valores de la UF para todos los días de un mes y año específicos.
-
 ### URL BASE
 
 ```bash
 https://ufapi.onrender.com
 ```
+
+#### Respuesta
+
+```json
+{ "Hello": "Health check baby" }
+```
+
+### Endpoints Disponibles
+
+- **Obtener el valor UF para un día específico**: Permite consultar el valor de la UF para una fecha específica (día, mes y año).
+- **Obtener los valores UF para un mes específico**: Permite consultar los valores de la UF para todos los días de un mes y año específicos.
 
 ### 1. Obtener el valor de la UF para una fecha específica
 
