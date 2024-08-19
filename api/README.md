@@ -6,11 +6,17 @@ Bienvenido a la API de Valores UF.
 
 Esta API proporciona acceso a los valores de la Unidad de Fomento (UF) para fechas específicas y para meses completos. Los valores se obtienen desde el sitio web oficial del Servicio de Impuestos Internos (SII).
 
+## SERVIDORES
+
+- **Desarrollo**: http://127.0.0.1:8000
+
+- **Producción**: https://ufapi.onrender.com
+
 ## Endpoints
 
 ### 1. Obtener el valor de la UF para una fecha específica
 
-- **URL**: `/api/uf/single/`
+- **RUTA**: `/api/uf/single/`
 - **Método**: `GET`
 - **Descripción**: Obtiene el valor de la UF para una fecha específica.
 
@@ -67,7 +73,7 @@ GET http://127.0.0.1:8000/api/uf/single/?day=19&month=8&year=2024
 
 ### 2. Obtener todos los valores de la UF para un mes y año específicos
 
-- **URL**: `/api/uf/monthly/`
+- **RUTA**: `/api/uf/monthly/`
 - **Método**: `GET`
 - **Descripción**: Obtiene todos los valores de la UF para un mes y año específicos.
 
